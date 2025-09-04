@@ -1,5 +1,3 @@
-**
-
 # Automating LibreWolf Updates on macOS
 
 This guide walks you through setting up an automatic, hands-off updater for LibreWolf on macOS using two native system tools: launchd and terminal-notifier.
@@ -316,7 +314,3 @@ That's it! Your LibreWolf auto-updater is now configured to run every night at 1
 If you ever need to check if the script ran, you can view the log file by running this command:
 
 cat /tmp/com.ruxbo.librewolf.update.log  
-  
-
-
-**
