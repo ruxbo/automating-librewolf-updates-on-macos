@@ -1,3 +1,16 @@
+# My LibreWolf Auto-Updater
+
+## Background
+As an "old dog" learning new tricks in Linux, I found myself getting tired of the repetitive task of manually updating LibreWolf. This project is a result of my experimentation with macOS's `launchd` and shell scripting to create a seamless, automated updater. I've learned a lot along the way, and I hope this project helps others who want to simplify their workflow.
+
+## Features
+- **Automated Updates:** The script checks for and installs the latest version of LibreWolf on a schedule you define.
+- **System Notifications:** You get a notification when the update starts and finishes.
+- **Clean and Simple:** It uses native macOS tools, so there are no extra dependencies outside of Homebrew.
+
+## Installation
+As an "old dog" learning new tricks in Linux, I found myself getting tired of the repetitive task of manually updating LibreWolf. This project is a result of my experimentation with macOS's `launchd` and shell scripting to create a seamless, automated updater. I've learned a lot along the way, and I hope this project helps others who want to simplify their workflow.
+
 # Automating LibreWolf Updates on macOS
 
 This guide walks you through setting up an automatic, hands-off updater for LibreWolf on macOS using two native system tools: launchd and terminal-notifier.
@@ -32,7 +45,7 @@ This script will check for a new LibreWolf version, download it, and install it.
     `nano ~/Documents/scripts/update\_librewolf.sh  `
       
     
-3.  Copy and paste the entire script below into the nano window. Note: This guide uses the username ruxbo. Please change all instances of `/Users/ruxbo/` to your own username if you are not `ruxbo`.
+3.  Copy and paste the entire script below into the nano window. Note: This guide uses the username ruxkbo. Please change all instances of `/Users/ruxkbo/` to your own username if you are not `ruxkbo`.
     
 ```bash
 #!/bin/bash  
@@ -243,8 +256,8 @@ This file tells macOS's launchd service what script to run and when to run it.
     `cd ~/Library/LaunchAgents`  
       
     
-2.  Use nano to create a new file named "com.ruxbo.librewolf.update.plist":  
-    `nano com.ruxbo.librewolf.update.plist ` 
+2.  Use nano to create a new file named "com.ruxkbo.librewolf.update.plist":  
+    `nano com.ruxkbo.librewolf.update.plist ` 
       
     
 3.  Copy and paste the entire content below into the nano window. The Hour integer is currently set to 22 for 10 PM. You can change this to any hour between 0 (for 12 AM) and 23 (for 11 PM).
@@ -255,16 +268,16 @@ This file tells macOS's launchd service what script to run and when to run it.
 <plist version="1.0">  
 <dict>  
     <key>Label</key>  
-    <string>com.ruxbo.librewolf.update</string>  
+    <string>com.ruxkbo.librewolf.update</string>  
     <key>ProgramArguments</key>  
     <array>  
         <string>/bin/bash</string>  
-        <string>/Users/ruxbo/Documents/scripts/update\_librewolf.sh</string>  
+        <string>/Users/ruxkbo/Documents/scripts/update\_librewolf.sh</string>  
     </array>  
     <key>StandardOutPath</key>  
-    <string>/tmp/com.ruxbo.librewolf.update.log</string>  
+    <string>/tmp/com.ruxkbo.librewolf.update.log</string>  
     <key>StandardErrorPath</key>  
-    <string>/tmp/com.ruxbo.librewolf.update.log</string>  
+    <string>/tmp/com.ruxkbo.librewolf.update.log</string>  
     <key>StartCalendarInterval</key>  
     <dict>  
         <key>Hour</key>  
@@ -284,11 +297,11 @@ This file tells macOS's launchd service what script to run and when to run it.
 This step tells macOS to start using the new agent file. If you ever make changes to the .plist file, you must run these commands again.
 
 1.  Unload the old version of the agent (if it exists):  
-    `launchctl unload ~/Library/LaunchAgents/com.ruxbo.librewolf.update.plist`  
+    `launchctl unload ~/Library/LaunchAgents/com.ruxkbo.librewolf.update.plist`  
       
     
 2.  Load the new agent:  
-    `launchctl load ~/Library/LaunchAgents/com.ruxbo.librewolf.update.plist`  
+    `launchctl load ~/Library/LaunchAgents/com.ruxkbo.librewolf.update.plist`  
       
     
 
@@ -313,4 +326,4 @@ That's it! Your LibreWolf auto-updater is now configured to run every night at 1
 
 If you ever need to check if the script ran, you can view the log file by running this command:
 
-`cat /tmp/com.ruxbo.librewolf.update.log`  
+`cat /tmp/com.ruxkbo.librewolf.update.log`  
