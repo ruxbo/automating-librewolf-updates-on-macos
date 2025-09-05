@@ -17,7 +17,7 @@ Before you begin, you need to install terminal-notifier using Homebrew. If you d
 
 Open a Terminal and run this command:
 
-brew install terminal-notifier  
+`brew install terminal-notifier  `
   
 
 ### Step 1: Create the Updater Script
@@ -25,41 +25,41 @@ brew install terminal-notifier
 This script will check for a new LibreWolf version, download it, and install it.
 
 1.  Open a Terminal and create a new directory for your scripts:  
-    mkdir -p ~/Documents/scripts  
+    `mkdir -p ~/Documents/scripts ` 
       
     
 2.  Use the nano text editor to create and open a new file named update\_librewolf.sh:  
-    nano ~/Documents/scripts/update\_librewolf.sh  
+    `nano ~/Documents/scripts/update\_librewolf.sh  `
       
     
-3.  Copy and paste the entire script below into the nano window. Note: This guide uses the username ruxbo. Please change all instances of /Users/ruxbo/ to your own username if you are not ruxbo.
+3.  Copy and paste the entire script below into the nano window. Note: This guide uses the username ruxbo. Please change all instances of `/Users/ruxbo/` to your own username if you are not `ruxbo`.
     
-
+```bash
 #!/bin/bash  
   
-\# This script checks the installed LibreWolf version on macOS against the latest  
-\# release and automatically updates it if a new version is available.  
-\# It is designed to be run as a launchd agent.  
+# This script checks the installed LibreWolf version on macOS against the latest  
+# release and automatically updates it if a new version is available.  
+# It is designed to be run as a launchd agent.  `
   
-\# Set the log file path with a timestamp. This creates a unique log file for each run,  
-\# ensuring a clear history of the script's execution.  
+# Set the log file path with a timestamp. This creates a unique log file for each run,  
+# ensuring a clear hi#story of the script's execution.  
 LOG\_FILE="/tmp/librewolf\_update-$(date +%Y%m%d-%H%M%S).log"  
   
-\# Redirect all standard output and standard error to the log file.  
-\# We use 'tee' to also output to the console for real-time viewing during manual runs.  
+# Redirect all standard output and standard error to the log file.  
+# We use 'tee' to also output to the console for real-time viewing during manual runs.  
 exec 1> >(tee -a "$LOG\_FILE") 2> >(tee -a "$LOG\_FILE" >&2)  
   
 echo "--- Starting LibreWolf Update Check at $(date) ---"  
   
-\# Explicitly set the PATH to include common Homebrew directories.  
-\# This ensures the script can find 'terminal-notifier' and other tools  
-\# even when run from a non-interactive shell (like a launchd agent).  
+# Explicitly set the PATH to include common Homebrew directories.  
+# This ensures the script can find 'terminal-notifier' and other tools  
+# even when run from a non-interactive shell (like a launchd agent).  
 PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"  
   
-\# --- Helper Functions ---  
+# --- Helper Functions ---  
   
-\# Function to find the correct path for the terminal-notifier tool.  
-\# This makes the script portable across different macOS systems (Intel vs. Apple Silicon).  
+# Function to find the correct path for the terminal-notifier tool.  
+# This makes the script portable across different macOS systems (Intel vs. Apple Silicon).  
 get\_notifier\_path() {  
     if \[ -x "/opt/homebrew/bin/terminal-notifier" \]; then  
         echo "/opt/homebrew/bin/terminal-notifier"  
@@ -71,11 +71,11 @@ get\_notifier\_path() {
     fi  
 }  
   
-\# Find the path to the notifier tool at the beginning of the script.  
+# Find the path to the notifier tool at the beginning of the script.  
 TERMINAL\_NOTIFIER\_PATH=$(get\_notifier\_path)  
   
-\# Function to display a notification in the macOS Notification Center.  
-\# It now uses the dynamically found path for the tool.  
+# Function to display a notification in the macOS Notification Center.  
+# It now uses the dynamically found path for the tool.  
 show\_notification() {  
     if \[ -n "$TERMINAL\_NOTIFIER\_PATH" \]; then  
         "$TERMINAL\_NOTIFIER\_PATH" -title "$2" -message "$1" -sender "org.mozilla.librewolf"  
@@ -83,9 +83,9 @@ show\_notification() {
     echo "Notification Message: $1" >&2  
 }  
   
-\# Function to get the installed version of LibreWolf.  
-\# It checks if the application exists and then reads the version directly from its Info.plist file.  
-\# This is the most reliable method on macOS.  
+# Function to get the installed version of LibreWolf.  
+# It checks if the application exists and then reads the version directly from its Info.plist file.  
+# This is the most reliable method on macOS.  
 get\_installed\_version() {  
     echo "Checking for installed LibreWolf version..." >&2  
     if \[ -d "/Applications/LibreWolf.app" \]; then  
@@ -100,7 +100,7 @@ get\_installed\_version() {
     fi  
 }  
   
-\# Function to fetch and parse the latest version from the Atom feed.  
+# Function to fetch and parse the latest version from the Atom feed.  
 get\_latest\_version() {  
     echo "Fetching the latest version from the releases feed..." >&2  
     local atom\_url="\[https://gitlab.com/librewolf-community/browser/bsys6/-/releases.atom\](https://gitlab.com/librewolf-community/browser/bsys6/-/releases.atom)"  
@@ -129,7 +129,7 @@ get\_latest\_version() {
     echo "$version"  
 }  
   
-\# Function to download and install the latest version.  
+# Function to download and install the latest version.  
 update\_librewolf() {  
     local version\_to\_download="$1"  
      
@@ -195,11 +195,11 @@ update\_librewolf() {
     show\_notification "LibreWolf has been updated to version $version\_to\_download. You can now relaunch the application." "LibreWolf Update"  
 }  
   
-\# --- Main script execution ---  
+# Main script execution#
   
 echo "Starting LibreWolf update check..." >&2  
   
-\# Get the versions  
+# Get the versions  
 latest\_version=$(get\_latest\_version)  
 installed\_version=$(get\_installed\_version)  
   
@@ -221,7 +221,7 @@ else
 fi  
   
 echo "Script execution finished." >&2  
-  
+```  
 
 4.  Press Ctrl + X to exit, then Y to save, and then Enter to confirm the filename.
     
@@ -232,7 +232,7 @@ The system needs permission to run your new file. This command grants it that pe
 
 Open a Terminal and run this command:
 
-chmod +x ~/Documents/scripts/update\_librewolf.sh  
+`chmod +x ~/Documents/scripts/update\_librewolf.sh`  
   
 
 ### Step 3: Create the launchd Agent File
@@ -240,16 +240,16 @@ chmod +x ~/Documents/scripts/update\_librewolf.sh
 This file tells macOS's launchd service what script to run and when to run it.
 
 1.  Open a Terminal and go to the correct directory:  
-    cd ~/Library/LaunchAgents  
+    `cd ~/Library/LaunchAgents`  
       
     
-2.  Use nano to create a new file named com.ruxbo.librewolf.update.plist:  
-    nano com.ruxbo.librewolf.update.plist  
+2.  Use nano to create a new file named "com.ruxbo.librewolf.update.plist":  
+    `nano com.ruxbo.librewolf.update.plist ` 
       
     
 3.  Copy and paste the entire content below into the nano window. The Hour integer is currently set to 22 for 10 PM. You can change this to any hour between 0 (for 12 AM) and 23 (for 11 PM).
     
-
+```xml
 <?xml version="1.0" encoding="UTF-8"?>  
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "\[http://www.apple.com/DTDs/PropertyList-1.0.dtd\](http://www.apple.com/DTDs/PropertyList-1.0.dtd)">  
 <plist version="1.0">  
@@ -274,7 +274,7 @@ This file tells macOS's launchd service what script to run and when to run it.
     </dict>  
 </dict>  
 </plist>  
-  
+```  
 
 4.  Press Ctrl + X to exit, then Y to save, and then Enter to confirm.
     
@@ -284,11 +284,11 @@ This file tells macOS's launchd service what script to run and when to run it.
 This step tells macOS to start using the new agent file. If you ever make changes to the .plist file, you must run these commands again.
 
 1.  Unload the old version of the agent (if it exists):  
-    launchctl unload ~/Library/LaunchAgents/com.ruxbo.librewolf.update.plist  
+    `launchctl unload ~/Library/LaunchAgents/com.ruxbo.librewolf.update.plist`  
       
     
 2.  Load the new agent:  
-    launchctl load ~/Library/LaunchAgents/com.ruxbo.librewolf.update.plist  
+    `launchctl load ~/Library/LaunchAgents/com.ruxbo.librewolf.update.plist`  
       
     
 
@@ -313,4 +313,4 @@ That's it! Your LibreWolf auto-updater is now configured to run every night at 1
 
 If you ever need to check if the script ran, you can view the log file by running this command:
 
-cat /tmp/com.ruxbo.librewolf.update.log  
+`cat /tmp/com.ruxbo.librewolf.update.log`  
