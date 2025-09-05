@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.ruxbo.librewolf.update</string>
+    <string>com.ruxkbo.librewolf.update</string>
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/ruxbo/Documents/scripts/update_librewolf.sh</string>
+        <string>/Users/ruxkbo/Documents/scripts/update_librewolf.sh</string>
     </array>
     <key>StandardOutPath</key>
-    <string>/tmp/com.ruxbo.librewolf.update.log</string>
+    <string>/tmp/com.ruxkbo.librewolf.update.log</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/com.ruxbo.librewolf.update.log</string>
+    <string>/tmp/com.ruxkbo.librewolf.update.log</string>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
