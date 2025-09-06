@@ -8,8 +8,7 @@ As an "old dog" learning new tricks in Linux, I found myself getting tired of th
 - **System Notifications:** You get a notification when the update starts and finishes.
 - **Clean and Simple:** It uses native macOS tools, so there are no extra dependencies outside of Homebrew.
 
-## Installation
-As an "old dog" learning new tricks in Linux, I found myself getting tired of the repetitive task of manually updating LibreWolf. This project is a result of my experimentation with macOS's `launchd` and shell scripting to create a seamless, automated updater. I've learned a lot along the way, and I hope this project helps others who want to simplify their workflow.
+
 
 # Automating LibreWolf Updates on macOS
 
